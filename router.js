@@ -8,7 +8,7 @@ var journey = require('journey'),
 * Manejador de peticiones
 */
 var requestHandler = function() {
-	//defauly
+	//default
 	this.root.bind( function ( req, res ) {
 		res.send("200", {}, "Hello world");
 	});
@@ -22,7 +22,7 @@ var requestHandler = function() {
 	});
 	//DELETE posts id
 	this.del(/^posts\/(\d+)$/).bind( function ( req, res, id) {
-		res.send( "200", {}, dbm.delData({"id": id}) );
+		res.send( "200", {}, dbm.delData(id) );
 	});
 	//PUT posts id
 	this.put(/^posts\/(\d+)$/).bind( function ( req, res, id, model) {

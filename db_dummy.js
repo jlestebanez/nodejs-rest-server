@@ -7,11 +7,19 @@ var data = [
 			{ "id": 3 , "titulo": "titulo 3", "contenido": "contenido del post numero 3"},
 			{ "id": 4 , "titulo": "titulo 4", "contenido": "contenido del post numero 4"}
 		],
-	dataset;
+	dataset = data;
+/*
+* Reseteo del recordset
+*/
 var resetDateset = function () {
+		console.log("-DB: Reseting recordset ...");
 		dataset = data;
 };
+/*
+* Devuelve los datos filtrados o no
+*/
 var getData = function( filter ) {
+	console.log("-DB: getData ...");
 	if(!filter )return dataset;
 	var i, prop, length = 0, result = [], pass;
 	length = dataset.length;
@@ -24,19 +32,23 @@ var getData = function( filter ) {
 	}
 	return result.length > 1 ? result : result[0];
 };
-var delData = function( filter ) {
-	var i, prop, length = 0, result = [], pass;
+/*
+* Elimina un elemento filtrado por el id
+*/
+var delData = function( id ) {
+	console.log("-DB: delData " + id + " ...");
+	var i, prop, length = 0, result = [];
 	length = dataset.length;
 	for( i = 0; i < length; i++) {
-		pass = false;
-		for(prop in filter) {
-			pass = (dataset[i][prop] == filter[prop]);
-		}
-		if( ! pass ) result.push(dataset[i]);
+		if( dataset[i].id != id ) result.push(dataset[i]);
 	}
 	dataset = result;
 };
+/*
+* Guarda un modelo identificado por un id
+*/
 var saveData = function( id, model ) {
+	console.log("-DB: saveData " + id + " ...");
 	var i, length = 0;
 	length = dataset.length;
 	for( i = 0; i < length; i++) {
@@ -46,8 +58,9 @@ var saveData = function( id, model ) {
 	}
 	return model;
 }
-resetDateset();
-
+/*
+* EXPORTS
+*/
 exports.resetDateset 	= resetDateset;
 exports.getData 		= getData;
 exports.delData 		= delData;
