@@ -10,7 +10,7 @@ var onRequest = function( req, res ) {
 	console.log("-HTTPSERVER: Requesting " + req.method + " " + req.url);
 	var body = "",
 		headers = {};
-
+	//Cabeceras para el CORS
 	headers["Access-Control-Allow-Origin"] = "*";
 	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
 	headers["Access-Control-Allow-Credentials"] = true;
@@ -41,12 +41,11 @@ var onRequest = function( req, res ) {
 */
 var isAuthorizated = function( authorizationHeader ) {
 	console.log("-HTTPSERVER: Checkin auth ...");
+	//Usuario y contraseña fake, implemtnar esto en algun lugar seguro
 	var USER = "user",
-		PASS = "1234",
-		tmp;
-		console.log(authorizationHeader);
+		PASS = "1234";
 	if (! authorizationHeader) return false;
-	tmp = authorizationHeader.split(" ");
+	var tmp = authorizationHeader.split(" ");
 	var buffer = new Buffer(tmp[1], "Base64");
 	tmp = buffer.toString().split(":");
 	return (tmp[0] === USER && tmp[1] === PASS);
