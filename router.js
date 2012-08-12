@@ -13,20 +13,20 @@ var requestHandler = function() {
 		res.send("200", {}, "Hello world");
 	});
 	//GET posts
-	this.get("/posts").bind( function ( req, res) {
-		res.send( "200", {}, dbm.getData() );
+	this.get(/^\/([a-zA-Z_]+$)/).bind( function ( req, res, model) {
+		res.send( "200", {}, dbm.setModel(model).getData() );
 	});
 	//GET posts id
-	this.get(/^posts\/(\d+)$/).bind( function ( req, res, id) {
-		res.send( "200", {}, dbm.getData({"id": id}) );
+	this.get(/^([a-zA-Z_]+)\/(\d+)$/).bind( function ( req, res, model, id) {
+		res.send( "200", {}, dbm.setModel(model).getData({"id": id}) );
 	});
 	//DELETE posts id
-	this.del(/^posts\/(\d+)$/).bind( function ( req, res, id) {
-		res.send( "200", {}, dbm.delData(id) );
+	this.del(/^([a-zA-Z_]+)\/(\d+)$/).bind( function ( req, res, model, id) {
+		res.send( "200", {}, dbm.setModel(model).delData(id) );
 	});
 	//PUT posts id
-	this.put(/^posts\/(\d+)$/).bind( function ( req, res, id, model) {
-		res.send( "200", {}, dbm.saveData(id, model));
+	this.put(/^([a-zA-Z_]+)\/(\d+)$/).bind( function ( req, res, model, id, data) {
+		res.send( "200", {}, dbm.setModel(model).saveData(id, data));
 	});
 };
 /*
